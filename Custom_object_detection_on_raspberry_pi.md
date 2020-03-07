@@ -280,7 +280,8 @@ Script:
 ```
 #!/bin/bash
 # Timelapse Controller for USB Webcam
-# Takes and saves 1440 photos from webcam (while x <= 1440) (saves 1 photo every 5 seconds) 
+# Takes and saves 1440 photos from webcam (while x <= 1440) in /home/pi/webcam directory
+# Saves 1 photo every 5 seconds
 # In order to run this script immediately when the pi boots up, edit ~/.bashrc file (not the best practice)
 # Script can be terminated at any time by pressing Ctrl C
 
