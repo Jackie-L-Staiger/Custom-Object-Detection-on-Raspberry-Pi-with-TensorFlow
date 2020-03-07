@@ -6,11 +6,11 @@ How To Perform Custom Object Detection on a Raspberry Pi Using Tensorflow
 **Created 3/3/2020 (code borrowed from various sources)**
 
 # Introduction
-This tutorial is designed to walk you through setting up a custom object detection model using TensorFlow on a raspberry pi 4B, assuming basic knowledge of directory navigation and file manipulation in a Linux/Raspian environment and assuming NO prior knowledge about deep learning or object detection. This method is ideal for those who want to be able to detect objects quickly using a small dataset (< 400 images) who are unfamiliar with deep learning methods.
+This tutorial is designed to walk you through setting up a custom object detection model using TensorFlow on a raspberry pi 4B, assuming basic knowledge of directory navigation and file manipulation in a Linux/Raspian environment and assuming NO prior knowledge about deep learning or object detection. This method is ideal for those who want to be able to detect objects quickly using a small dataset (< 400 images) who are unfamiliar with deep learning methods. And the end of this tutorial, you should be able to run a script that can identify and draw bounding boxes around objects of your choice in pictures, videos, or a live webcam/picamera feed. 
 
-The tutorial begins by explaining how to install TensorFlow and OpenCV on both the pi (for testing) and on a virtual machine (for training). Object detection can be performed on live video feed from a picamera or webcam, images, or a pre-recorded video. Though this procedure was tested using a raspberry pi 4B, earlier pi versions should work as well. 
+The tutorial begins by explaining how to install TensorFlow and OpenCV on both the pi (for testing) and on a virtual machine (for training). Though this procedure was tested using a raspberry pi 4B, earlier pi versions should work as well. 
 
-**Note 1:** Due to the limited amount of memory on the raspberry pi, you will need to perform training on either your own personal computer or a virtual machine (VM) instance, such as that on Google Cloud Platform (GCP) (the method using GCP will be described in detail below for those reluctant to install TensorFlow directly on their personal computers). 
+**Note 1:** Due to the limited amount of memory on the raspberry pi, you will need to perform training on either your own personal computer or a virtual machine (VM) instance, such as that on Google Cloud Platform (GCP) (the method using GCP will be described in detail below for those reluctant to install TensorFlow directly on their personal computers). This tutorial assumes a Windows personal computer is being used to run the VM instance, though this method could potentially be adapted to run on an alternative operating system. 
 
 **Note 2:** An older version of TensorFlow (TensorFlow 1.15) is currently being used until the pycocotools bug with TensorFlow 2.0's model_main.py gets resolved. This will require you to have to use a deprecated training file, though this will be explained in detail.
 
@@ -30,15 +30,21 @@ The tutorial begins by explaining how to install TensorFlow and OpenCV on both t
 
 7. [Test Your Custom Model](#7-test-your-custom-model)
 
+8. [Appendix](#Appendix)
+
 
 # Steps
 ## 1: Install Tensorflow, OpenCV, and All the Necessary Dependencies on the Raspberry Pi
 
 TODO
 
+```
+
+```
+
 ## 2: Label Images
 
-1. Take a LOT of photos of the objects you are trying to detect (more than 350 is recommended, though the more you have, the better) with different lighting conditions, angles, backgrounds, etc. You can also find images online
+1. Take many photos of the objects you are trying to detect (more than 350 is recommended, though the more you have, the better) with different lighting conditions, angles, backgrounds, etc. You can also find images online. A script located in the [Appendix](#Appendix) enables you to take photos using a USB webcam connected to the pi
 
 2. Download labelImg in order to label all your photos. Assuming you are in your pi's home directory, type the following:
 
@@ -258,3 +264,39 @@ In _object_detection_ folder:
 ```
 python3 Object_detection_image.py
 ```
+
+## Appendix
+
+### Take Photos using a USB Webcam Connected to the Pi
+
+Note: Make sure support is enabled for a raspberry pi camera (or webcam) first: 
+
+```
+raspi config
+```
+
+Script:
+
+```
+#!/bin/bash
+# Timelapse Controller for USB Webcam
+# Takes and saves 1440 photos from webcam (while x <= 1440) (saves 1 photo every 5 seconds) 
+# In order to run this script immediately when the pi boots up, edit ~/.bashrc file (not the best practice, but it works)
+# Script can be terminated at any time by pressing Ctrl C
+
+DIR=/home/pi/webcam
+
+x=1
+while [ $x -le 1440 ]; do 
+
+filename=$(date -u +"%d%mY_%H%M-%S").jpg
+
+fswebcam -d /dev/video0 -r 1280x720 $DIR/$filename
+
+x=$(( $x + 1 ))
+
+sleep 1;
+
+done;
+```
+
