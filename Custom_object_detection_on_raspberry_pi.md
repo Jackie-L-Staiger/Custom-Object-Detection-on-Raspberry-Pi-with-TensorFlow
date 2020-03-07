@@ -57,6 +57,10 @@ TODO
 git clone https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10.git 
 ```
 
+TODO
+
+TODO
+
 ## 2: Label Images
 
 1. Take many photos of the objects you are trying to detect (more than 350 is recommended, though the more you have, the better) with different lighting conditions, angles, backgrounds, etc. You can also find images online. A script located in the [Appendix](#Appendix) enables you to take photos using a USB webcam connected to the pi. The following command will tell you the number of images (or files) located in a directory:
