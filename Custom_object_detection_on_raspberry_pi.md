@@ -36,15 +36,34 @@ The tutorial begins by explaining how to install TensorFlow and OpenCV on both t
 # Steps
 ## 1: Install Tensorflow, OpenCV, and All the Necessary Dependencies on the Raspberry Pi
 
-TODO
+### Setting Up a Virtual Environment on the Pi
+It is highly recommended you set up a virtual environment to install all the libraries in order to prevent other projects you may have from breaking due to version compatibility issues (e.g. Python 2 vs Python 3 issues).
 
 ```
+sudo python3 -m pip install virtualenv        
+virtualenv env_tensorflow               # create a new virtual environment called "env_tensorflow"
+cd env_tensorflow
+source bin/activate                     # activate the virtual environment
+```
+Run the above last 2 steps before installing TensorFlow or anything else. Now, any libraries you install will only be installed in the virtual environment and will not affect the rest of the system. (To get out of a virtual environment, run "deactivate")
 
+### Get COCO Trained Model from TensorFlow github
+
+TODO
+
+### Get Edje's Code
+
+```
+git clone https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10.git 
 ```
 
 ## 2: Label Images
 
-1. Take many photos of the objects you are trying to detect (more than 350 is recommended, though the more you have, the better) with different lighting conditions, angles, backgrounds, etc. You can also find images online. A script located in the [Appendix](#Appendix) enables you to take photos using a USB webcam connected to the pi
+1. Take many photos of the objects you are trying to detect (more than 350 is recommended, though the more you have, the better) with different lighting conditions, angles, backgrounds, etc. You can also find images online. A script located in the [Appendix](#Appendix) enables you to take photos using a USB webcam connected to the pi. The following command will tell you the number of images (or files) located in a directory:
+
+```
+ls -1 | wc -l        # Run this in the directory that contains your images. Should be > 350 
+```
 
 2. Download labelImg in order to label all your photos. Assuming you are in your pi's home directory, type the following:
 
